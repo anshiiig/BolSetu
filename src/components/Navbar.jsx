@@ -9,6 +9,7 @@ import {
 import { SUPPORTED_LANGUAGES } from '../services/audioEngine';
 import { UI_TRANSLATIONS, getLocalizedLanguageName } from '../data/uiTranslations';
 import { sfx } from '../services/soundEffects';
+import { BolSetuBrandLogo } from './BolSetuLogo';
 
 export function Navbar({
   activeTab,
@@ -41,14 +42,11 @@ export function Navbar({
 
   return (
     <header className="navbar">
-      {/* Brand Logo - Crisp BolSetu */}
-      <div className="nav-brand" onClick={() => handleTabClick('path')} title="BolSetu">
-        <div className="brand-icon">बो</div>
-        <div className="brand-text">
-          <h1>BolSetu</h1>
-          <span>{t.tagline}</span>
-        </div>
-      </div>
+      {/* Brand Logo - Playful BolSetu Mascot & Typography */}
+      <BolSetuBrandLogo
+        subtitle={t.tagline}
+        onClick={() => handleTabClick('path')}
+      />
 
       {/* Center Navigation Tabs (Horizontally sliding on mobile devices) */}
       <nav className="nav-tabs" aria-label="Main Navigation">

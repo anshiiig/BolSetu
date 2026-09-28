@@ -31,13 +31,10 @@ export function AksharTracing({
 
   // Tabs: 'letters' | 'forge'
   const [activeStudioTab, setActiveStudioTab] = useState('letters');
-  const [category, setCategory] = useState('vowels'); // 'vowels' | 'consonants' | 'numbers'
+  const [category, setCategory] = useState('vowels'); // 'vowels' | 'consonants'
 
-  // Items for current category
-  let items = [];
-  if (category === 'vowels') items = langData.vowels || [];
-  else if (category === 'consonants') items = langData.consonants || [];
-  else if (category === 'numbers') items = langData.numbers || [];
+  // Items for current category (vowels or consonants)
+  const items = category === 'vowels' ? (langData.vowels || []) : (langData.consonants || []);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -203,12 +200,11 @@ export function AksharTracing({
               boxShadow: 'var(--shadow-sm)',
             }}
           >
-            {/* Category Selector */}
-            <div style={{ display: 'flex', gap: '6px' }}>
+            {/* Category Selector (Vowels & Consonants) */}
+            <div style={{ display: 'flex', gap: '8px' }}>
               {[
                 { id: 'vowels', label: t.catVowels || 'स्वर', icon: '🍎' },
                 { id: 'consonants', label: t.catConsonants || 'व्यंजन', icon: '🪷' },
-                { id: 'numbers', label: t.catNumbers || 'संख्या', icon: '🔢' },
               ].map((c) => (
                 <button
                   key={c.id}

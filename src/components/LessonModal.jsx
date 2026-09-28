@@ -30,6 +30,7 @@ export function LessonModal({
   const questions = level.questions || [];
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [shuffledOptions, setShuffledOptions] = useState([]);
   const [scrambleTokens, setScrambleTokens] = useState([]);
   const [scrambleSelected, setScrambleSelected] = useState([]);
   const [matchPairs, setMatchPairs] = useState([]);
@@ -58,6 +59,18 @@ export function LessonModal({
     setFillBlankChoice(null);
     setSpokenTranscript('');
     setPronunciationResult(null);
+
+    // Dynamically shuffle options for multiple_choice, listening_mcq, fill_blank
+    if (currentQ.options && Array.isArray(currentQ.options)) {
+      const copy = [...currentQ.options];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      setShuffledOptions(copy);
+    } else {
+      setShuffledOptions([]);
+    }
 
     // Auto play audio prompt if available
     if (currentQ.audioPrompt) {
@@ -220,7 +233,7 @@ export function LessonModal({
   const handleCheckAnswer = () => {
     if (currentQ.type === 'multiple_choice' || currentQ.type === 'listening_mcq') {
       if (selectedOption === null) return;
-      const isCorrect = currentQ.options[selectedOption].isCorrect;
+      const isCorrect = shuffledOptions[selectedOption]?.isCorrect;
       if (isCorrect) {
         sfx.playSuccess();
         setCheckStatus('correct');
@@ -232,7 +245,7 @@ export function LessonModal({
       }
     } else if (currentQ.type === 'fill_blank') {
       if (selectedOption === null) return;
-      const isCorrect = currentQ.options[selectedOption]?.isCorrect;
+      const isCorrect = shuffledOptions[selectedOption]?.isCorrect;
       if (isCorrect) {
         sfx.playSuccess();
         setCheckStatus('correct');
@@ -392,7 +405,7 @@ export function LessonModal({
           {/* QUESTION TYPE 1 & 2: Multiple Choice / Listening MCQ */}
           {(currentQ.type === 'multiple_choice' || currentQ.type === 'listening_mcq') && (
             <div className="mcq-grid">
-              {currentQ.options.map((opt, idx) => {
+              {shuffledOptions.map((opt, idx) => {
                 let statusClass = '';
                 if (checkStatus !== 'unanswered') {
                   if (opt.isCorrect) statusClass = 'correct';
@@ -469,13 +482,13 @@ export function LessonModal({
                     borderRadius: '8px',
                   }}
                 >
-                  {selectedOption !== null ? currentQ.options[selectedOption]?.text : '___'}
+                  {selectedOption !== null ? shuffledOptions[selectedOption]?.text : '___'}
                 </span>
                 <span>{currentQ.sentenceParts?.[1] || ''}</span>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
-                {currentQ.options.map((opt, idx) => (
+                {shuffledOptions.map((opt, idx) => (
                   <div
                     key={idx}
                     className={`mcq-option ${selectedOption === idx ? 'selected' : ''}`}
@@ -623,10 +636,23 @@ export function LessonModal({
           )}
         </div>
 
-        {/* Footer */}
-        {currentQ.type !== 'duolingo_trace' && (
-          <div className="lesson-footer">
-            {checkStatus === 'unanswered' ? (
+        {/* Sticky Action Footer */}
+        <div className="lesson-footer">
+          {checkStatus === 'unanswered' ? (
+            currentQ.type === 'duolingo_trace' ? (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 700 }}>
+                  ✍️ {t.traceLetter || 'Follow the blue arrow to complete the letter'}
+                </div>
+                <button
+                  className="btn-3d btn-primary"
+                  disabled={true}
+                  style={{ opacity: 0.5, cursor: 'not-allowed' }}
+                >
+                  {t.continueBtn || 'Continue'}
+                </button>
+              </div>
+            ) : (
               <>
                 <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                   {t.checkBtn}
@@ -645,29 +671,29 @@ export function LessonModal({
                   {t.checkBtn}
                 </button>
               </>
-            ) : checkStatus === 'correct' ? (
-              <>
-                <div className="feedback-strip correct">
-                  <CheckCircle2 size={24} />
-                  <span>{t.wellDone}</span>
-                </div>
-                <button className="btn-3d btn-primary" onClick={handleNext}>
-                  {t.continueBtn}
-                </button>
-              </>
-            ) : (
-              <>
-                <div className="feedback-strip incorrect">
-                  <XCircle size={24} />
-                  <span>{t.tryAgain}</span>
-                </div>
-                <button className="btn-3d btn-danger" onClick={handleNext}>
-                  {t.continueBtn}
-                </button>
-              </>
-            )}
-          </div>
-        )}
+            )
+          ) : checkStatus === 'correct' ? (
+            <>
+              <div className="feedback-strip correct">
+                <CheckCircle2 size={24} />
+                <span>{t.wellDone || 'Excellent!'}</span>
+              </div>
+              <button className="btn-3d btn-primary" onClick={handleNext}>
+                {t.continueBtn || 'Continue'} ➔
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="feedback-strip incorrect">
+                <XCircle size={24} />
+                <span>{t.tryAgain || 'Incorrect'}</span>
+              </div>
+              <button className="btn-3d btn-danger" onClick={handleNext}>
+                {t.continueBtn || 'Continue'} ➔
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

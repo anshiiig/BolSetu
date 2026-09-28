@@ -1514,3 +1514,115 @@ h1, h2, h3, h4, .indic-text {
     opacity: 1;
   }
 }
+
+/* Ambient Animated Literacy Wallpaper Keyframes */
+@keyframes float-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(12px, -20px, 0) rotate(4deg);
+  }
+  66% {
+    transform: translate3d(-8px, -35px, 0) rotate(-3deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+@keyframes ambient-pulse {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.12) translate3d(20px, 15px, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+    opacity: 0.75;
+  }
+}
+
+@keyframes mascot-logo-bounce {
+  0%, 100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.04) rotate(2deg);
+  }
+}
+
+/* ==========================================================================
+   Dedicated Mobile Bottom App Navigation Bar (Duolingo Style)
+   ========================================================================== */
+.mobile-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: var(--bg-card);
+    border-top: 2px solid var(--border-subtle);
+    z-index: 100;
+    align-items: center;
+    justify-content: space-around;
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12px);
+  }
+
+  .mobile-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 12px;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+    transition: all 0.2s ease;
+    flex: 1;
+    text-decoration: none;
+  }
+
+  .mobile-nav-btn.active {
+    color: #10B981;
+    background: rgba(16, 185, 129, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .mobile-nav-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  /* Hide center nav tabs in top navbar on phone since they're in bottom bar */
+  .navbar .nav-tabs {
+    display: none !important;
+  }
+
+  /* Space for bottom navigation */
+  .app-container {
+    padding-bottom: 100px !important;
+  }
+
+  /* Responsive canvas on phone */
+  .duolingo-tracing-stage {
+    max-width: 290px !important;
+  }
+}
+

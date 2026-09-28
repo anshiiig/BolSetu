@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Star, Lock, Check, Gift, Play, Sparkles, Trophy } from 'lucide-react';
 import { CURRICULUM_STAGES, getCurriculumForLanguage } from '../data/curriculumData';
+import { LEVEL_REWARDS, STAGE_CHEST_REWARDS } from '../data/rewardsData';
 import { UI_TRANSLATIONS } from '../data/uiTranslations';
 import { sfx } from '../services/soundEffects';
 
@@ -114,19 +115,65 @@ export function LearningPath({
                   );
                 })}
 
-                {/* Milestone Chest between Stages */}
-                <div style={{ margin: '14px 0' }}>
+                {/* Milestone Chest between Stages with Progressive Rewards */}
+                {STAGE_CHEST_REWARDS[stage.id] && (
                   <div
-                    className="milestone-chest"
-                    onClick={() => {
-                      sfx.playCoin();
-                      if (onOpenChest) onOpenChest(stage.id);
+                    style={{
+                      margin: '18px 0',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: '6px',
                     }}
-                    title="Milestone Reward Chest! Click for bonus Gems & XP"
                   >
-                    🎁
+                    <div
+                      className="milestone-chest"
+                      onClick={() => {
+                        sfx.playCoin();
+                        if (onOpenChest) onOpenChest(stage.id);
+                      }}
+                      title={`${STAGE_CHEST_REWARDS[stage.id].title} - Click to unlock +${STAGE_CHEST_REWARDS[stage.id].xp} XP & +${STAGE_CHEST_REWARDS[stage.id].gems} Gems!`}
+                      style={{
+                        position: 'relative',
+                        cursor: 'pointer',
+                        transform: 'scale(1.08)',
+                      }}
+                    >
+                      <span style={{ fontSize: '2.4rem' }}>
+                        {STAGE_CHEST_REWARDS[stage.id].icon || '🎁'}
+                      </span>
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '-6px',
+                          right: '-6px',
+                          background: '#58CC02',
+                          color: '#000',
+                          fontSize: '0.65rem',
+                          fontWeight: 900,
+                          borderRadius: '999px',
+                          padding: '2px 6px',
+                          boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                        }}
+                      >
+                        +{STAGE_CHEST_REWARDS[stage.id].gems}💎
+                      </div>
+                    </div>
+                    <span
+                      style={{
+                        fontSize: '0.74rem',
+                        fontWeight: 800,
+                        color: 'var(--text-muted)',
+                        background: 'var(--bg-card)',
+                        padding: '2px 8px',
+                        borderRadius: '6px',
+                        border: '1px solid var(--border-subtle)',
+                      }}
+                    >
+                      {STAGE_CHEST_REWARDS[stage.id].title}
+                    </span>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           );
@@ -168,35 +215,49 @@ export function LearningPath({
                 {selectedPreviewLevel.description}
               </p>
 
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  gap: '16px',
-                  marginBottom: '24px',
-                  background: 'var(--bg-main)',
-                  padding: '12px',
-                  borderRadius: '12px',
-                }}
-              >
-                <div>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block' }}>
-                    {t.reward}
-                  </span>
-                  <strong style={{ color: '#15803D', fontSize: '1.1rem' }}>
-                    +{selectedPreviewLevel.xpReward} XP
-                  </strong>
-                </div>
-                <div style={{ width: '1px', background: 'var(--border-subtle)' }} />
-                <div>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block' }}>
-                    {t.exercises}
-                  </span>
-                  <strong style={{ fontSize: '1.1rem' }}>
-                    {selectedPreviewLevel.questions.length}
-                  </strong>
-                </div>
-              </div>
+              {/* Progressive Rewards Preview Box */}
+              {(() => {
+                const lvlReward = LEVEL_REWARDS[selectedPreviewLevel.levelId] || { xp: 30, gems: 15, badge: '🌱 First Steps' };
+                return (
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(3, 1fr)',
+                      gap: '8px',
+                      marginBottom: '24px',
+                      background: 'var(--bg-main)',
+                      padding: '12px 8px',
+                      borderRadius: '16px',
+                      border: '1.5px solid var(--border-subtle)',
+                    }}
+                  >
+                    <div>
+                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'block', fontWeight: 700 }}>
+                        {t.reward || 'REWARD'}
+                      </span>
+                      <strong style={{ color: '#16A34A', fontSize: '1.05rem', fontWeight: 900 }}>
+                        +{lvlReward.xp} XP
+                      </strong>
+                    </div>
+                    <div style={{ borderLeft: '1px solid var(--border-subtle)', borderRight: '1px solid var(--border-subtle)' }}>
+                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'block', fontWeight: 700 }}>
+                        GEMS
+                      </span>
+                      <strong style={{ color: '#0284C7', fontSize: '1.05rem', fontWeight: 900 }}>
+                        +{lvlReward.gems} 💎
+                      </strong>
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'block', fontWeight: 700 }}>
+                        BADGE
+                      </span>
+                      <strong style={{ fontSize: '0.85rem', fontWeight: 800, whiteSpace: 'nowrap' }}>
+                        {lvlReward.icon} {lvlReward.badge.split(' ')[1] || 'Badge'}
+                      </strong>
+                    </div>
+                  </div>
+                );
+              })()}
 
               <button
                 className="btn-3d btn-primary"

@@ -1,7 +1,7 @@
 // Vercel Serverless Function: POST /api/tts
 // Proxies text-to-speech requests to Sarvam AI Bulbul v3 with zero client-side secret exposure
 
-const SARVAM_API_KEY = process.env.SARVAM_API_KEY || 'sk_qkx76qdz_xn8XH22i1J27UMaQmEtN9zn4';
+const SARVAM_API_KEY = process.env.SARVAM_API_KEY || 'sk_mlehb0tz_goox9CCT6ZalwdOvrNjkUSbf';
 
 export default async function handler(req, res) {
   // CORS Headers

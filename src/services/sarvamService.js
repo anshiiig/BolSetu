@@ -4,7 +4,7 @@
 
 import { audioCache } from './audioCache';
 
-const DEFAULT_SARVAM_KEY = 'sk_qkx76qdz_xn8XH22i1J27UMaQmEtN9zn4';
+const DEFAULT_SARVAM_KEY = 'sk_mlehb0tz_goox9CCT6ZalwdOvrNjkUSbf';
 const SARVAM_STORAGE_KEY = 'aksharpath_sarvam_key';
 const SARVAM_SPEAKER_KEY = 'aksharpath_sarvam_speaker';
 
@@ -47,8 +47,12 @@ export const SARVAM_SPEAKERS = [
 
 class SarvamService {
   constructor() {
-    // Check localStorage, fall back to default working key
-    const storedKey = typeof window !== 'undefined' ? localStorage.getItem(SARVAM_STORAGE_KEY) : null;
+    // Check localStorage, auto-migrate if stale key is found
+    let storedKey = typeof window !== 'undefined' ? localStorage.getItem(SARVAM_STORAGE_KEY) : null;
+    if (storedKey && (storedKey === 'sk_qkx76qdz_xn8XH22i1J27UMaQmEtN9zn4' || storedKey.length < 15)) {
+      storedKey = DEFAULT_SARVAM_KEY;
+      localStorage.setItem(SARVAM_STORAGE_KEY, DEFAULT_SARVAM_KEY);
+    }
     this.apiKey = (storedKey && storedKey.trim().length > 10) ? storedKey.trim() : DEFAULT_SARVAM_KEY;
 
     if (typeof window !== 'undefined' && !storedKey) {

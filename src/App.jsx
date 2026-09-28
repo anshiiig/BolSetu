@@ -15,6 +15,10 @@ import { SarvamSettingsModal } from './components/SarvamSettingsModal';
 import { CertificateModal } from './components/CertificateModal';
 import { ProfileModal } from './components/ProfileModal';
 import { AdminDashboard } from './components/AdminDashboard';
+import { AnimatedBackground } from './components/AnimatedBackground';
+import { PwaInstallBanner } from './components/PwaInstallBanner';
+import { RewardModal } from './components/RewardModal';
+import { LEVEL_REWARDS, STAGE_CHEST_REWARDS } from './data/rewardsData';
 import { UI_TRANSLATIONS, getLocalizedLanguageName } from './data/uiTranslations';
 import { SUPPORTED_LANGUAGES } from './services/audioEngine';
 import { sfx } from './services/soundEffects';
@@ -113,6 +117,7 @@ export function App() {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showCertificate, setShowCertificate] = useState(false);
   const [showHeartRefillModal, setShowHeartRefillModal] = useState(false);
+  const [activeRewardModal, setActiveRewardModal] = useState(null);
 
   // Apply Theme
   useEffect(() => {
@@ -242,6 +247,12 @@ export function App() {
     setAuthModalConfig({ isOpen: false, mode: 'login' });
     setIsGuestMode(false);
 
+    // If logging in as Admin or Chief Administrator, route directly to Admin Dashboard
+    if (userData.role === 'admin' || userData.role === 'super_admin') {
+      setIsAdminView(true);
+      return;
+    }
+
     // If user has already taken the test, NEVER pop it up again!
     if (userData.testCompleted) {
       setActiveTab('path');
@@ -300,9 +311,21 @@ export function App() {
     setActiveTab('path');
   };
 
-  const handleCompleteLesson = ({ levelId, xp: earnedXp, stars, accuracy }) => {
+  const handleCompleteLesson = ({ levelId, stars, accuracy }) => {
     setActiveLessonLevel(null);
+    const rewardInfo = LEVEL_REWARDS[levelId] || {
+      xp: 35,
+      gems: 20,
+      badge: '🌱 First Steps',
+      title: 'Level Completed!',
+      desc: 'Progress milestone unlocked!'
+    };
+    const earnedXp = rewardInfo.xp;
+    const earnedGems = rewardInfo.gems;
+
     setXp((prev) => prev + earnedXp);
+    setGems((prev) => prev + earnedGems);
+
     const nextCompleted = Array.from(new Set([...completedLevels, levelId]));
     const nextScores = {
       ...levelScores,
@@ -314,6 +337,13 @@ export function App() {
     if (levelId >= userLevel && userLevel < 10) {
       setUserLevel(levelId + 1);
     }
+
+    // Trigger progressive rewards celebration popup!
+    setActiveRewardModal({
+      ...rewardInfo,
+      stars,
+      accuracy,
+    });
   };
 
   const handleLoseHeart = () => {
@@ -332,18 +362,21 @@ export function App() {
     setShowHeartRefillModal(false);
   };
 
-  const handleOpenChest = () => {
-    sfx.playLevelComplete();
-    setGems((g) => g + 25);
-    setXp((x) => x + 30);
-    try {
-      confetti({ particleCount: 60, spread: 60, origin: { y: 0.5 } });
-    } catch (e) {}
-    alert(
-      uiLang === 'en'
-        ? '🎁 Congratulations! You unlocked +25 Gems and +30 XP!'
-        : '🎁 बधाई! आपको मिले +25 रत्न और +30 XP अंक!'
-    );
+  const handleOpenChest = (stageId) => {
+    const chestReward = STAGE_CHEST_REWARDS[stageId] || {
+      xp: 75,
+      gems: 40,
+      title: 'Milestone Chest',
+      icon: '🎁',
+      desc: 'Great job reaching this learning milestone!'
+    };
+    setXp((prev) => prev + chestReward.xp);
+    setGems((prev) => prev + chestReward.gems);
+
+    setActiveRewardModal({
+      ...chestReward,
+      badge: `+${chestReward.gems} Gems Bonus!`,
+    });
   };
 
   // =========================================================================
@@ -379,9 +412,9 @@ export function App() {
   }
 
   // =========================================================================
-  // ADMIN DASHBOARD VIEW (When Admin is logged in and isAdminView is active)
+  // ADMIN DASHBOARD VIEW (When Admin/Chief Admin is logged in and isAdminView is active)
   // =========================================================================
-  if (currentUser?.role === 'admin' && isAdminView) {
+  if ((currentUser?.role === 'admin' || currentUser?.role === 'super_admin') && isAdminView) {
     return (
       <div data-theme={theme} style={{ minHeight: '100vh' }}>
         <AdminDashboard
@@ -817,6 +850,79 @@ export function App() {
           </div>
         </div>
       )}
+      {/* Ambient Animated Literacy Wallpaper */}
+      <AnimatedBackground theme={theme} />
+
+      {/* 1-Tap Mobile PWA Install Banner */}
+      <PwaInstallBanner uiLang={uiLang} />
+
+      {/* Progressive Reward Milestone Celebration Modal */}
+      <RewardModal
+        isOpen={Boolean(activeRewardModal)}
+        reward={activeRewardModal}
+        uiLang={uiLang}
+        onClaim={() => setActiveRewardModal(null)}
+      />
+
+      {/* Dedicated Mobile Bottom App Bar (Phones <= 768px) */}
+      <nav className="mobile-bottom-nav" aria-label="Mobile Bottom Navigation">
+        <button
+          className={`mobile-nav-btn ${activeTab === 'path' ? 'active' : ''}`}
+          onClick={() => {
+            sfx.playPop();
+            setActiveTab('path');
+          }}
+        >
+          <span className="mobile-nav-icon">🗺️</span>
+          <span>{t.navPath || 'Path'}</span>
+        </button>
+
+        {['hi', 'mr'].includes(targetLang) && (
+          <button
+            className={`mobile-nav-btn ${activeTab === 'tracing' ? 'active' : ''}`}
+            onClick={() => {
+              sfx.playPop();
+              setActiveTab('tracing');
+            }}
+          >
+            <span className="mobile-nav-icon">✍️</span>
+            <span>{t.navTracing || 'Trace'}</span>
+          </button>
+        )}
+
+        <button
+          className={`mobile-nav-btn ${activeTab === 'soundboard' ? 'active' : ''}`}
+          onClick={() => {
+            sfx.playPop();
+            setActiveTab('soundboard');
+          }}
+        >
+          <span className="mobile-nav-icon">🔊</span>
+          <span>{t.navSoundboard || 'Audio'}</span>
+        </button>
+
+        <button
+          className={`mobile-nav-btn ${activeTab === 'games' ? 'active' : ''}`}
+          onClick={() => {
+            sfx.playPop();
+            setActiveTab('games');
+          }}
+        >
+          <span className="mobile-nav-icon">🎮</span>
+          <span>{t.navGames || 'Games'}</span>
+        </button>
+
+        <button
+          className={`mobile-nav-btn ${activeTab === 'dashboard' ? 'active' : ''}`}
+          onClick={() => {
+            sfx.playPop();
+            setActiveTab('dashboard');
+          }}
+        >
+          <span className="mobile-nav-icon">📊</span>
+          <span>{t.navDashboard || 'Progress'}</span>
+        </button>
+      </nav>
     </div>
   );
 }

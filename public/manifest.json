@@ -4,10 +4,16 @@
   "description": "AI Voice-Bridge to Literacy for Neo-Learners across Indic Languages",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/logo.svg",
       "type": "image/svg+xml",
       "sizes": "any",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
     }
   ],
   "start_url": "/",

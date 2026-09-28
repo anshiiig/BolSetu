@@ -1,7 +1,7 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-const SARVAM_API_KEY = process.env.SARVAM_API_KEY || 'sk_qkx76qdz_xn8XH22i1J27UMaQmEtN9zn4';
+const SARVAM_API_KEY = process.env.SARVAM_API_KEY || 'sk_mlehb0tz_goox9CCT6ZalwdOvrNjkUSbf';
 
 // In-memory server-side audio cache
 const ttsServerCache = new Map();

@@ -39,13 +39,13 @@ export const CHARACTER_STROKES = {
     { id: 's3', d: 'M 155 152 C 115 156 115 196 150 196 C 168 196 168 180 150 180 L 125 230', arrow: '↺' },
     { id: 's4', d: 'M 105 90 L 205 90', arrow: '→' },
   ],
-  // Devanagari 'ई'
+  // Devanagari 'ई' (Corrected authentic upper hook matra)
   'ई': [
     { id: 's1', d: 'M 155 90 L 155 112', arrow: '↓' },
     { id: 's2', d: 'M 155 112 C 190 112 190 148 155 152', arrow: '↷' },
     { id: 's3', d: 'M 155 152 C 115 156 115 196 150 196 C 168 196 168 180 150 180 L 125 230', arrow: '↺' },
     { id: 's4', d: 'M 105 90 L 205 90', arrow: '→' },
-    { id: 's5', d: 'M 155 90 C 155 58 198 58 198 75', arrow: '↷' },
+    { id: 's5', d: 'M 155 90 C 160 52 192 52 195 75', arrow: '↗' },
   ],
   'उ': [
     { id: 's1', d: 'M 115 105 Q 165 100 165 135 Q 165 160 125 160', arrow: '↷' },
@@ -293,15 +293,142 @@ export const CHARACTER_STROKES = {
     { id: 's3', d: 'M 140 155 L 185 155', arrow: '→' },
     { id: 's4', d: 'M 140 155 C 110 155 110 190 140 190 C 160 190 160 180 140 180 L 120 225', arrow: '↺' },
   ],
+
+  // --- TELUGU FOUNDATIONAL ALPHABET (తెలుగు) ---
+  'అ': [
+    { id: 's1', d: 'M 120 125 C 120 85 170 85 170 125 C 170 160 125 160 125 195 C 125 225 185 225 185 195', arrow: '↷' },
+    { id: 's2', d: 'M 185 195 L 225 195', arrow: '→' },
+  ],
+  'ఆ': [
+    { id: 's1', d: 'M 120 125 C 120 85 170 85 170 125 C 170 160 125 160 125 195 C 125 225 185 225 185 195', arrow: '↷' },
+    { id: 's2', d: 'M 185 195 C 220 195 225 160 225 140', arrow: '↷' },
+  ],
+  'ఇ': [
+    { id: 's1', d: 'M 115 130 C 115 85 185 85 185 130 C 185 175 115 175 115 220 L 195 220', arrow: '↷' },
+  ],
+  'ఈ': [
+    { id: 's1', d: 'M 115 130 C 115 85 185 85 185 130 C 185 175 115 175 115 220 L 195 220', arrow: '↷' },
+    { id: 's2', d: 'M 150 90 L 150 65', arrow: '↑' },
+  ],
+  'ఉ': [
+    { id: 's1', d: 'M 115 110 C 185 110 185 160 145 160 C 185 160 185 210 115 210', arrow: '↷' },
+    { id: 's2', d: 'M 140 160 L 195 160', arrow: '→' },
+  ],
+  'క': [
+    { id: 's1', d: 'M 110 160 C 110 115 190 115 190 160 C 190 205 110 205 110 160', arrow: '↺' },
+    { id: 's2', d: 'M 140 100 L 160 125 L 180 100', arrow: '✓' },
+  ],
+  'గ': [
+    { id: 's1', d: 'M 115 160 C 115 115 185 115 185 160 C 185 205 115 205 115 160', arrow: '↺' },
+    { id: 's2', d: 'M 140 105 L 180 105', arrow: '→' },
+  ],
+
+  // --- TAMIL FOUNDATIONAL ALPHABET (தமிழ்) ---
+  'அ': [
+    { id: 's1', d: 'M 110 120 C 110 95 145 95 145 120 C 145 150 110 160 110 185 C 110 215 175 215 175 185', arrow: '↷' },
+    { id: 's2', d: 'M 150 185 L 210 185', arrow: '→' },
+    { id: 's3', d: 'M 210 100 L 210 225', arrow: '↓' },
+  ],
+  'ஆ': [
+    { id: 's1', d: 'M 110 120 C 110 95 145 95 145 120 C 145 150 110 160 110 185 C 110 215 175 215 175 185', arrow: '↷' },
+    { id: 's2', d: 'M 150 185 L 210 185', arrow: '→' },
+    { id: 's3', d: 'M 210 100 L 210 225 C 210 250 170 250 170 230', arrow: '↓' },
+  ],
+  'இ': [
+    { id: 's1', d: 'M 115 125 C 115 90 185 90 185 130 C 185 170 125 170 125 205 L 195 205', arrow: '↷' },
+  ],
+  'ஈ': [
+    { id: 's1', d: 'M 130 90 L 130 225', arrow: '↓' },
+    { id: 's2', d: 'M 180 90 L 180 225', arrow: '↓' },
+    { id: 's3', d: 'M 110 90 L 200 90', arrow: '→' },
+    { id: 's4', d: 'M 155 140 L 155 145', arrow: '•' },
+  ],
+  'உ': [
+    { id: 's1', d: 'M 115 110 C 185 110 185 170 120 170 L 195 170', arrow: '↷' },
+  ],
+  'க': [
+    { id: 's1', d: 'M 110 110 L 200 110', arrow: '→' },
+    { id: 's2', d: 'M 155 110 L 155 220', arrow: '↓' },
+    { id: 's3', d: 'M 155 165 C 185 165 205 185 205 220', arrow: '↷' },
+  ],
+
+  // --- BENGALI FOUNDATIONAL ALPHABET (বাংলা) ---
+  'অ': [
+    { id: 's1', d: 'M 95 90 L 215 90', arrow: '→' },
+    { id: 's2', d: 'M 120 120 C 120 100 145 100 145 120 C 145 145 115 155 125 185 C 135 215 175 200 175 175', arrow: '↷' },
+    { id: 's3', d: 'M 155 180 L 185 180', arrow: '→' },
+    { id: 's4', d: 'M 185 90 L 185 225', arrow: '↓' },
+  ],
+  'আ': [
+    { id: 's1', d: 'M 95 90 L 225 90', arrow: '→' },
+    { id: 's2', d: 'M 115 120 C 115 100 140 100 140 120 C 140 145 110 155 120 185 C 130 215 165 200 165 175', arrow: '↷' },
+    { id: 's3', d: 'M 145 180 L 175 180', arrow: '→' },
+    { id: 's4', d: 'M 175 90 L 175 225', arrow: '↓' },
+    { id: 's5', d: 'M 205 90 L 205 225', arrow: '↓' },
+  ],
+  'ই': [
+    { id: 's1', d: 'M 95 90 L 215 90', arrow: '→' },
+    { id: 's2', d: 'M 130 115 C 115 100 145 95 155 110 C 165 130 135 155 125 180 L 155 220', arrow: '↷' },
+    { id: 's3', d: 'M 155 90 C 158 52 192 52 195 75', arrow: '↗' },
+  ],
+  'ঈ': [
+    { id: 's1', d: 'M 95 90 L 215 90', arrow: '→' },
+    { id: 's2', d: 'M 130 115 C 115 100 145 95 155 110 C 165 130 135 155 125 180 L 155 220', arrow: '↷' },
+    { id: 's3', d: 'M 155 90 C 158 52 192 52 195 75', arrow: '↗' },
+    { id: 's4', d: 'M 155 180 L 195 220', arrow: '↘' },
+  ],
+  'উ': [
+    { id: 's1', d: 'M 95 90 L 205 90', arrow: '→' },
+    { id: 's2', d: 'M 115 110 C 175 110 175 155 135 155 C 175 155 175 205 115 205', arrow: '↷' },
+  ],
+  'ক': [
+    { id: 's1', d: 'M 95 90 L 215 90', arrow: '→' },
+    { id: 's2', d: 'M 155 90 L 120 185 L 190 185', arrow: '↓' },
+    { id: 's3', d: 'M 155 90 L 155 225', arrow: '↓' },
+  ],
+
+  // --- ENGLISH FOUNDATIONAL LETTERS ---
+  'A': [
+    { id: 's1', d: 'M 150 75 L 105 225', arrow: '↙' },
+    { id: 's2', d: 'M 150 75 L 195 225', arrow: '↘' },
+    { id: 's3', d: 'M 120 175 L 180 175', arrow: '→' },
+  ],
+  'B': [
+    { id: 's1', d: 'M 115 80 L 115 225', arrow: '↓' },
+    { id: 's2', d: 'M 115 80 C 175 80 175 150 115 150', arrow: '↷' },
+    { id: 's3', d: 'M 115 150 C 185 150 185 225 115 225', arrow: '↷' },
+  ],
+  'C': [
+    { id: 's1', d: 'M 195 105 C 115 75 115 225 195 195', arrow: '↺' },
+  ],
 };
 
-// Generates fallback graceful strokes for any character not explicitly listed
+// Generates graceful curved fallback strokes for any character not explicitly listed
 function getFallbackStrokesForChar(char) {
   return [
-    { id: 's1', d: 'M 90 90 L 225 90', arrow: '→' },
-    { id: 's2', d: 'M 155 90 L 155 225', arrow: '↓' },
-    { id: 's3', d: 'M 155 155 C 195 155 205 185 205 215', arrow: '↷' },
+    { id: 's1', d: 'M 115 125 C 115 85 185 85 185 125 C 185 165 115 165 115 205 C 115 235 185 235 185 205', arrow: '↷' },
+    { id: 's2', d: 'M 185 165 L 225 165', arrow: '→' },
   ];
+}
+
+// Offscreen SVG helper for instantaneous, synchronous, and 100% reliable stroke metrics
+let offscreenPathEl = null;
+function getStrokeMetrics(d, progress = 0) {
+  if (typeof document === 'undefined') {
+    return { totalLength: 160, point: { x: 150, y: 150 } };
+  }
+  if (!offscreenPathEl) {
+    offscreenPathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  }
+  try {
+    offscreenPathEl.setAttribute('d', d);
+    const totalLength = offscreenPathEl.getTotalLength() || 160;
+    const clamped = Math.min(Math.max(progress, 0), 1);
+    const pt = offscreenPathEl.getPointAtLength(clamped * totalLength);
+    return { totalLength, point: { x: pt.x, y: pt.y } };
+  } catch {
+    return { totalLength: 160, point: { x: 150, y: 150 } };
+  }
 }
 
 export function DuolingoTracer({
@@ -346,20 +473,13 @@ export function DuolingoTracer({
     }
   }, [activeStrokeIdx, character]);
 
-  const currentStroke = strokes[activeStrokeIdx];
-  const activeTotalLength = pathLengthsRef.current[activeStrokeIdx] || 160;
+  const currentStroke = strokes[activeStrokeIdx] || strokes[0];
 
-  // Calculate current knob position along active stroke
-  const knobPos = useMemo(() => {
-    if (!activePathRef.current) return { x: 150, y: 150 };
-    try {
-      const len = activeTotalLength * Math.min(Math.max(strokeProgress, 0), 1);
-      const pt = activePathRef.current.getPointAtLength(len);
-      return { x: pt.x, y: pt.y };
-    } catch {
-      return { x: 150, y: 150 };
-    }
-  }, [strokeProgress, activeTotalLength, activeStrokeIdx]);
+  // Instantaneous synchronous metrics for current active stroke (never lags React renders)
+  const { totalLength: activeTotalLength, point: knobPos } = useMemo(() => {
+    if (!currentStroke) return { totalLength: 160, point: { x: 150, y: 150 } };
+    return getStrokeMetrics(currentStroke.d, strokeProgress);
+  }, [currentStroke, strokeProgress]);
 
   // Audio Playback
   const handlePlaySound = () => {
@@ -380,19 +500,22 @@ export function DuolingoTracer({
 
   // Find progression on stroke given cursor coordinate
   const computeProgress = (pointer) => {
-    const path = activePathRef.current;
-    if (!path) return strokeProgress;
-
+    if (!currentStroke) return strokeProgress;
+    if (typeof document === 'undefined') return strokeProgress;
+    if (!offscreenPathEl) {
+      offscreenPathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    }
+    offscreenPathEl.setAttribute('d', currentStroke.d);
     const total = activeTotalLength;
     let closestDist = Infinity;
     let bestFraction = strokeProgress;
 
     // Sample along path in small increments
-    const samples = 35;
+    const samples = 40;
     for (let i = 0; i <= samples; i++) {
       const fraction = i / samples;
       if (fraction < strokeProgress - 0.1) continue;
-      const pt = path.getPointAtLength(fraction * total);
+      const pt = offscreenPathEl.getPointAtLength(fraction * total);
       const dx = pointer.x - pt.x;
       const dy = pointer.y - pt.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
@@ -610,16 +733,17 @@ export function DuolingoTracer({
 
             return (
               <g key={stroke.id}>
-                {/* 1. Track Base (Deep Slate Chalk Line) */}
+                {/* 1. Track Base (High Contrast Chalk Track) */}
                 <path
                   d={stroke.d}
-                  stroke={isFinished ? '#FFFFFF' : '#2A3C4D'}
+                  stroke={isFinished ? '#58CC02' : '#2A3C4D'}
                   strokeWidth="24"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   fill="none"
                   style={{
                     transition: isFinished ? 'stroke 0.2s' : 'none',
+                    filter: isFinished ? 'drop-shadow(0 0 6px rgba(88,204,2,0.4))' : 'none',
                   }}
                 />
 
