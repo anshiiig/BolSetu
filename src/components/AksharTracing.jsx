@@ -186,7 +186,7 @@ export function AksharTracing({
           MODE 1: INTERACTIVE CHARACTER TRACING CANVAS WITH ANIMATED ARROWS
          ===================================================================== */}
       {activeStudioTab === 'letters' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(280px, 320px) 1fr', gap: '20px' }}>
+        <div className="tracing-layout-grid">
           {/* Left Column: Character List & Categories */}
           <div
             style={{

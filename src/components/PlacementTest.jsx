@@ -31,6 +31,13 @@ export function PlacementTest({
   const handleSelectOption = (idx) => {
     sfx.playPop();
     setSelectedOption(idx);
+    const opt = currentQ?.options?.[idx];
+    if (opt?.text) {
+      const cleanWord = opt.text.split('/')[0].split('(')[0].replace(/[\p{Emoji}\u200d]+/gu, '').trim() || opt.text;
+      if (cleanWord) {
+        audioEngine.speak(cleanWord, targetLang);
+      }
+    }
   };
 
   const handleHearAudio = () => {

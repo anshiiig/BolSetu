@@ -7,6 +7,7 @@ import {
   Volume2,
   CheckCircle2,
   TrendingUp,
+  Trophy,
 } from 'lucide-react';
 import { CURRICULUM_STAGES } from '../data/curriculumData';
 import { UI_TRANSLATIONS, getLocalizedLanguageName } from '../data/uiTranslations';
@@ -106,6 +107,57 @@ export function Dashboard({
           <Award size={20} color="#4F46E5" />
           <span>{t.viewCertificate}</span>
         </button>
+      </div>
+
+      {/* Daily Literacy Goal Progress Card */}
+      <div
+        style={{
+          background: 'var(--bg-card)',
+          border: '2px solid var(--border-subtle)',
+          borderRadius: '18px',
+          padding: '20px 24px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '12px',
+                background: 'rgba(245, 158, 11, 0.15)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Trophy size={22} color="#F59E0B" />
+            </div>
+            <div>
+              <h4 style={{ fontSize: '1.1rem', fontWeight: 900, margin: 0 }}>{t.dailyGoal}</h4>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t.dailyXp}</span>
+            </div>
+          </div>
+          <strong style={{ fontSize: '1.1rem', color: 'var(--primary)' }}>
+            {Math.min(xp, 100)} / 100 XP
+          </strong>
+        </div>
+
+        <div style={{ height: '10px', background: 'var(--border-subtle)', borderRadius: '10px', overflow: 'hidden' }}>
+          <div
+            style={{
+              height: '100%',
+              width: `${Math.min(100, (xp / 100) * 100)}%`,
+              background: 'linear-gradient(90deg, #5B42F3, #F59E0B)',
+              borderRadius: '10px',
+              transition: 'width 0.4s ease',
+            }}
+          />
+        </div>
       </div>
 
       {/* 4 Key Metrics Cards */}

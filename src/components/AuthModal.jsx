@@ -707,16 +707,6 @@ export function AuthModal({
                       }}
                     />
                   </div>
-                  {loginTab === 'admin' && adminSubMode === 'register' && (
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginTop: '6px', lineHeight: 1.35 }}>
-                      ℹ️ New registrations are queued for approval by Chief Administrator (<code>anshigupta17051@gmail.com</code>).
-                    </span>
-                  )}
-                  {loginTab === 'admin' && adminSubMode === 'login' && (
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginTop: '6px' }}>
-                      Chief Administrator: <code>anshigupta17051@gmail.com</code>
-                    </span>
-                  )}
                 </div>
 
                 <button
@@ -735,17 +725,43 @@ export function AuthModal({
                     : t.login}
                 </button>
 
-                <div style={{ textAlign: 'center', marginTop: '8px' }}>
-                  <span
-                    style={{ color: 'var(--secondary)', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
-                    onClick={() => {
-                      sfx.playPop();
-                      setMode('register');
-                      setAuthError('');
-                    }}
-                  >
-                    {t.dontHaveAccount}
-                  </span>
+                <div style={{ textAlign: 'center', marginTop: '12px' }}>
+                  {loginTab === 'admin' ? (
+                    adminSubMode === 'register' ? (
+                      <span
+                        style={{ color: 'var(--secondary)', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
+                        onClick={() => {
+                          sfx.playPop();
+                          setAdminSubMode('login');
+                          setAuthError('');
+                        }}
+                      >
+                        {selectedUiLang === 'en' ? 'Already have an account? Admin Login' : 'खाते आधीच आहे? व्यवस्थापक लॉगिन करा'}
+                      </span>
+                    ) : (
+                      <span
+                        style={{ color: 'var(--secondary)', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
+                        onClick={() => {
+                          sfx.playPop();
+                          setAdminSubMode('register');
+                          setAuthError('');
+                        }}
+                      >
+                        {selectedUiLang === 'en' ? 'Need admin access? Request Registration' : 'प्रशासक प्रवेश हवा आहे? नोंदणीची विनंती करा'}
+                      </span>
+                    )
+                  ) : (
+                    <span
+                      style={{ color: 'var(--secondary)', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
+                      onClick={() => {
+                        sfx.playPop();
+                        setMode('register');
+                        setAuthError('');
+                      }}
+                    >
+                      {t.dontHaveAccount}
+                    </span>
+                  )}
                 </div>
               </form>
             </div>

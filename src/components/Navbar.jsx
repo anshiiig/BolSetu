@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  Flame,
-  Zap,
-  Heart,
   User,
   ChevronDown,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { SUPPORTED_LANGUAGES } from '../services/audioEngine';
 import { UI_TRANSLATIONS, getLocalizedLanguageName } from '../data/uiTranslations';
@@ -16,13 +15,10 @@ export function Navbar({
   setActiveTab,
   targetLang,
   uiLang,
-  streak,
-  xp,
-  hearts,
-  maxHearts = 5,
-  onRefillHearts,
   currentUser,
   onOpenProfile,
+  theme = 'light',
+  toggleTheme,
 }) {
   const t = UI_TRANSLATIONS[uiLang] || UI_TRANSLATIONS.en;
   const currentLangObj = SUPPORTED_LANGUAGES.find((l) => l.code === targetLang) || SUPPORTED_LANGUAGES[0];
@@ -93,30 +89,40 @@ export function Navbar({
         </button>
       </nav>
 
-      {/* Clean Right Side Stats & Profile Button */}
+      {/* Sleek, Decluttered Right Actions: Theme Toggle, Learning Lang, Profile */}
       <div className="nav-stats">
-        {/* Streak Pill */}
-        <div className="stat-pill stat-streak" title={`${streak} ${t.streak}`}>
-          <Flame size={18} fill="#F97316" color="#EA580C" />
-          <span>{streak}</span>
-        </div>
-
-        {/* XP Pill */}
-        <div className="stat-pill stat-xp" title={`${xp} ${t.xp}`}>
-          <Zap size={18} fill="#FF9F1C" color="#D97706" />
-          <span>{xp}</span>
-        </div>
-
-        {/* Hearts Energy Pill */}
-        <div
-          className="stat-pill stat-hearts"
-          title={`${hearts}/${maxHearts} ${t.hearts} (Click to refill)`}
-          onClick={onRefillHearts}
-        >
-          <Heart size={18} fill="#EF4444" color="#DC2626" />
-          <span>{hearts}</span>
-          {hearts < maxHearts && <span style={{ fontSize: '0.75rem', opacity: 0.8, marginLeft: '2px' }}>+</span>}
-        </div>
+        {/* Permanent Top Theme Toggle Button */}
+        {toggleTheme && (
+          <button
+            className="theme-toggle-btn"
+            onClick={() => {
+              sfx.playPop();
+              toggleTheme();
+            }}
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            aria-label="Toggle Theme"
+            style={{
+              width: '38px',
+              height: '38px',
+              borderRadius: '50%',
+              background: 'var(--bg-card)',
+              border: '2px solid var(--border-subtle)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              color: 'var(--text-main)',
+              transition: 'all 0.2s ease',
+              flexShrink: 0,
+            }}
+          >
+            {theme === 'dark' ? (
+              <Sun size={18} color="#FBBF24" />
+            ) : (
+              <Moon size={18} color="#6366F1" />
+            )}
+          </button>
+        )}
 
         {/* Active Learning Language Badge (Clickable to change) */}
         <button
@@ -124,7 +130,7 @@ export function Navbar({
           onClick={handleProfileClick}
           title={`Currently Learning: ${currentLangObj.name} (Click to change)`}
         >
-          <span style={{ fontSize: '1rem' }}>{currentLangObj.flag || '🇮🇳'}</span>
+          <span style={{ fontSize: '1.1rem' }}>{currentLangObj.flag || '🇮🇳'}</span>
           <span className="lang-code-tag">{getLocalizedLanguageName(targetLang, uiLang)}</span>
         </button>
 
@@ -132,7 +138,7 @@ export function Navbar({
         <button
           className="nav-profile-pill"
           onClick={handleProfileClick}
-          title="Open Profile & Settings (Change language, UI, personal details)"
+          title="Open Profile & Settings"
         >
           <div className="nav-avatar">
             {currentUser?.name ? currentUser.name.charAt(0).toUpperCase() : <User size={16} />}

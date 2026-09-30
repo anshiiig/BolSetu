@@ -108,6 +108,13 @@ export function LessonModal({
     if (checkStatus !== 'unanswered') return;
     sfx.playPop();
     setSelectedOption(idx);
+    const opt = shuffledOptions[idx];
+    if (opt?.text) {
+      const cleanWord = opt.speakText || opt.text.split('/')[0].split('(')[0].replace(/[\p{Emoji}\u200d]+/gu, '').trim() || opt.text;
+      if (cleanWord) {
+        audioEngine.speak(cleanWord, targetLang);
+      }
+    }
   };
 
   const handleAddToken = (token, idx) => {
@@ -117,6 +124,9 @@ export function LessonModal({
     const nextTokens = [...scrambleTokens];
     nextTokens.splice(idx, 1);
     setScrambleTokens(nextTokens);
+    if (token) {
+      audioEngine.speak(token, targetLang);
+    }
   };
 
   const handleRemoveToken = (token, idx) => {
@@ -133,10 +143,18 @@ export function LessonModal({
     if (matchedPairs.includes(item)) return;
     sfx.playPop();
     setSelectedLeft(item);
+    const cleanWord = (item || '').split('/')[0].split('(')[0].replace(/[\p{Emoji}\u200d]+/gu, '').trim();
+    if (cleanWord) {
+      audioEngine.speak(cleanWord, targetLang);
+    }
   };
 
   const handleMatchRight = (pair) => {
     if (checkStatus !== 'unanswered') return;
+    const cleanWord = (pair.speakWord || pair.right || '').split('/')[0].split('(')[0].replace(/[\p{Emoji}\u200d]+/gu, '').trim();
+    if (cleanWord) {
+      audioEngine.speak(cleanWord, targetLang);
+    }
     if (!selectedLeft) return;
     sfx.playPop();
 
@@ -492,12 +510,7 @@ export function LessonModal({
                   <div
                     key={idx}
                     className={`mcq-option ${selectedOption === idx ? 'selected' : ''}`}
-                    onClick={() => {
-                      if (checkStatus === 'unanswered') {
-                        sfx.playPop();
-                        setSelectedOption(idx);
-                      }
-                    }}
+                    onClick={() => handleMcqSelect(idx)}
                   >
                     {opt.text}
                   </div>

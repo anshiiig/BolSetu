@@ -18,12 +18,13 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { AnimatedBackground } from './components/AnimatedBackground';
 import { PwaInstallBanner } from './components/PwaInstallBanner';
 import { RewardModal } from './components/RewardModal';
+import { BolSetuChatbot } from './components/BolSetuChatbot';
 import { LEVEL_REWARDS, STAGE_CHEST_REWARDS } from './data/rewardsData';
 import { UI_TRANSLATIONS, getLocalizedLanguageName } from './data/uiTranslations';
 import { SUPPORTED_LANGUAGES } from './services/audioEngine';
 import { sfx } from './services/soundEffects';
 import confetti from 'canvas-confetti';
-import { Trophy, Sun, Moon, Sparkles, BookOpen, ChevronRight, User } from 'lucide-react';
+import { Trophy, Sun, Moon, Sparkles, BookOpen, ChevronRight, User, Flame, Zap, Heart } from 'lucide-react';
 
 export function App() {
   // Theme State: 'light' | 'dark'
@@ -492,12 +493,10 @@ export function App() {
         setActiveTab={setActiveTab}
         targetLang={targetLang}
         uiLang={uiLang}
-        streak={streak}
-        xp={xp}
-        hearts={hearts}
-        onRefillHearts={() => setShowHeartRefillModal(true)}
         currentUser={currentUser}
         onOpenProfile={() => setShowProfileModal(true)}
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
 
       {/* Main Learning Application Container */}
@@ -573,8 +572,99 @@ export function App() {
         </section>
 
         {/* Right Companion Panel: Shifted Context Widgets */}
-        <aside className="side-panel">
-          {/* 1. ACTIVE LEARNING COURSE CARD */}
+        <aside className={`side-panel ${activeTab !== 'path' ? 'side-panel-secondary' : ''}`}>
+          {/* 1. TOP LEARNER VITALITY STATS (Streak, XP, Hearts) */}
+          <div
+            className="learner-vitality-card"
+            style={{
+              background: 'var(--bg-card)',
+              border: '2px solid var(--border-subtle)',
+              borderRadius: '16px',
+              padding: '12px 14px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
+            }}
+          >
+            {/* Streak */}
+            <div
+              style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+              title={`${streak} ${t.streak}`}
+            >
+              <div
+                style={{
+                  width: '34px',
+                  height: '34px',
+                  borderRadius: '10px',
+                  background: 'rgba(249, 115, 22, 0.12)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Flame size={18} fill="#F97316" color="#EA580C" />
+              </div>
+              <div>
+                <div style={{ fontSize: '0.98rem', fontWeight: 900, lineHeight: 1.1 }}>{streak}</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontWeight: 700 }}>{t.streak}</div>
+              </div>
+            </div>
+
+            {/* XP */}
+            <div
+              style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+              title={`${xp} ${t.xp}`}
+            >
+              <div
+                style={{
+                  width: '34px',
+                  height: '34px',
+                  borderRadius: '10px',
+                  background: 'rgba(245, 158, 11, 0.12)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Zap size={18} fill="#FF9F1C" color="#D97706" />
+              </div>
+              <div>
+                <div style={{ fontSize: '0.98rem', fontWeight: 900, lineHeight: 1.1 }}>{xp}</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontWeight: 700 }}>XP</div>
+              </div>
+            </div>
+
+            {/* Hearts Energy */}
+            <div
+              style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
+              title={`${hearts}/5 ${t.hearts} (Click to refill)`}
+              onClick={() => setShowHeartRefillModal(true)}
+            >
+              <div
+                style={{
+                  width: '34px',
+                  height: '34px',
+                  borderRadius: '10px',
+                  background: 'rgba(239, 68, 68, 0.12)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Heart size={18} fill="#EF4444" color="#DC2626" />
+              </div>
+              <div>
+                <div style={{ fontSize: '0.98rem', fontWeight: 900, lineHeight: 1.1, color: '#EF4444' }}>
+                  {hearts}
+                  <span style={{ fontSize: '0.72rem', opacity: 0.8 }}>/5</span>
+                </div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--primary)', fontWeight: 800 }}>+ {uiLang === 'en' ? 'Refill' : 'भरें'}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. ACTIVE LEARNING COURSE CARD */}
           <div className="course-side-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -626,121 +716,51 @@ export function App() {
             </div>
           </div>
 
-          {/* 2. AKSHI THE OWL MASCOT */}
+          {/* 3. AKSHI THE OWL MASCOT */}
           <Mascot
             mood="happy"
             message={getMascotMessage()}
             uiLang={uiLang}
           />
 
-          {/* 3. PERSONALIZED TRACK CARD */}
-          <div
-            style={{
-              background: 'var(--bg-card)',
-              border: '2px solid var(--border-subtle)',
-              borderRadius: '16px',
-              padding: '16px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--secondary)' }}>
-                {t.personalizedTrack}
+          {/* 4. DAILY GOAL CARD (Shown on Learning Path) */}
+          {activeTab === 'path' && (
+            <div className="soundboard-container" style={{ padding: '20px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+                <Trophy size={22} color="#F59E0B" />
+                <h4 style={{ fontSize: '1.05rem', fontWeight: 800 }}>
+                  {t.dailyGoal}
+                </h4>
               </div>
-              <div style={{ fontSize: '0.98rem', fontWeight: 900, marginTop: '2px' }}>
-                {ageGroup === 'child'
-                  ? `🧒 ${t.ageChildShort}`
-                  : ageGroup === 'senior'
-                  ? `👵 ${t.ageSeniorShort}`
-                  : `👨‍💼 ${t.ageAdultShort}`}
+
+              <div style={{ marginBottom: '14px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '6px' }}>
+                  <span style={{ color: 'var(--text-muted)' }}>
+                    {t.dailyXp}
+                  </span>
+                  <strong>{Math.min(xp, 100)} / 100 XP</strong>
+                </div>
+                <div style={{ height: '10px', background: '#E2E8F0', borderRadius: '10px', overflow: 'hidden' }}>
+                  <div
+                    style={{
+                      height: '100%',
+                      width: `${Math.min(100, (xp / 100) * 100)}%`,
+                      background: 'var(--primary)',
+                      borderRadius: '10px',
+                    }}
+                  />
+                </div>
               </div>
-              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
-                {currentUser?.name ? `${currentUser.name} (${currentUser.age || 25}y)` : (t.learnerWord || 'Learner')}
-              </p>
+
+              <button
+                className="btn-3d btn-secondary"
+                style={{ width: '100%', padding: '10px', fontSize: '0.9rem' }}
+                onClick={() => setActiveTab('games')}
+              >
+                🎮 {t.playGamesToEarnXp}
+              </button>
             </div>
-            <button
-              className="btn-3d btn-outline"
-              onClick={() => {
-                sfx.playPop();
-                setShowProfileModal(true);
-              }}
-              style={{ padding: '6px 10px', fontSize: '0.78rem', borderRadius: '8px' }}
-            >
-              {t.edit}
-            </button>
-          </div>
-
-          {/* 4. DAILY GOAL CARD */}
-          <div className="soundboard-container" style={{ padding: '20px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-              <Trophy size={22} color="#F59E0B" />
-              <h4 style={{ fontSize: '1.05rem', fontWeight: 800 }}>
-                {t.dailyGoal}
-              </h4>
-            </div>
-
-            <div style={{ marginBottom: '14px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '6px' }}>
-                <span style={{ color: 'var(--text-muted)' }}>
-                  {t.dailyXp}
-                </span>
-                <strong>{Math.min(xp, 100)} / 100 XP</strong>
-              </div>
-              <div style={{ height: '10px', background: '#E2E8F0', borderRadius: '10px', overflow: 'hidden' }}>
-                <div
-                  style={{
-                    height: '100%',
-                    width: `${Math.min(100, (xp / 100) * 100)}%`,
-                    background: 'var(--primary)',
-                    borderRadius: '10px',
-                  }}
-                />
-              </div>
-            </div>
-
-            <button
-              className="btn-3d btn-secondary"
-              style={{ width: '100%', padding: '10px', fontSize: '0.9rem' }}
-              onClick={() => setActiveTab('games')}
-            >
-              🎮 {t.playGamesToEarnXp}
-            </button>
-          </div>
-
-          {/* 5. QUICK PREFERENCES & SYSTEM STATUS BAR */}
-          <div className="side-status-bar">
-            {/* Voice Status Pill */}
-            <div
-              onClick={() => {
-                sfx.playPop();
-                setShowSarvamSettings(true);
-              }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                cursor: 'pointer',
-                fontWeight: 700,
-                color: '#15803D',
-              }}
-              title="Sarvam AI Neural Speech Active (Click to configure)"
-            >
-              <Sparkles size={15} color="#15803D" />
-              <span style={{ fontSize: '0.78rem' }}>Sarvam Bulbul v3</span>
-            </div>
-
-            {/* Quick Theme Toggle */}
-            <button
-              className="icon-btn"
-              onClick={toggleTheme}
-              style={{ width: '32px', height: '32px' }}
-              title={theme === 'dark' ? t.themeLight : t.themeDark}
-            >
-              {theme === 'dark' ? <Sun size={15} color="#FBBF24" /> : <Moon size={15} color="#4F46E5" />}
-            </button>
-          </div>
+          )}
         </aside>
       </main>
 
@@ -815,8 +835,9 @@ export function App() {
       <CertificateModal
         isOpen={showCertificate}
         onClose={() => setShowCertificate(false)}
-        userName={currentUser?.name || 'शिक्षार्थी (Learner)'}
-        targetLangName={currentLangObj.name}
+        userName={currentUser?.name || (uiLang === 'en' ? 'Learner' : 'शिक्षार्थी')}
+        targetLangName={getLocalizedLanguageName(targetLang, uiLang)}
+        uiLang={uiLang}
         lessonsCompleted={completedLevels.length}
         wordsMastered={Math.max(wordsMasteredList.length, completedLevels.length * 4 + 8)}
       />
@@ -862,6 +883,12 @@ export function App() {
         reward={activeRewardModal}
         uiLang={uiLang}
         onClaim={() => setActiveRewardModal(null)}
+      />
+
+      {/* BolSetu AI Literacy Companion Chatbot */}
+      <BolSetuChatbot
+        targetLang={targetLang}
+        uiLang={uiLang}
       />
 
       {/* Dedicated Mobile Bottom App Bar (Phones <= 768px) */}

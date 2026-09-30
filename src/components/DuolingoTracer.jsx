@@ -32,18 +32,18 @@ export const CHARACTER_STROKES = {
     { id: 's5', d: 'M 215 95 L 215 225', arrow: '↓' },
     { id: 's6', d: 'M 165 95 L 235 95', arrow: '→' },
   ],
-  // Devanagari 'इ' (Corrected authentic stroke pattern)
+  // Devanagari 'इ' (Authentic Devanagari: curves LEFT first, then RIGHT with loop and tail)
   'इ': [
     { id: 's1', d: 'M 155 90 L 155 112', arrow: '↓' },
-    { id: 's2', d: 'M 155 112 C 190 112 190 148 155 152', arrow: '↷' },
-    { id: 's3', d: 'M 155 152 C 115 156 115 196 150 196 C 168 196 168 180 150 180 L 125 230', arrow: '↺' },
+    { id: 's2', d: 'M 155 112 C 120 112 120 152 155 152', arrow: '↺' },
+    { id: 's3', d: 'M 155 152 C 190 152 190 196 155 196 C 138 196 135 180 155 180 L 130 230', arrow: '↷' },
     { id: 's4', d: 'M 105 90 L 205 90', arrow: '→' },
   ],
-  // Devanagari 'ई' (Corrected authentic upper hook matra)
+  // Devanagari 'ई' (Authentic Devanagari S-body + upper hook matra)
   'ई': [
     { id: 's1', d: 'M 155 90 L 155 112', arrow: '↓' },
-    { id: 's2', d: 'M 155 112 C 190 112 190 148 155 152', arrow: '↷' },
-    { id: 's3', d: 'M 155 152 C 115 156 115 196 150 196 C 168 196 168 180 150 180 L 125 230', arrow: '↺' },
+    { id: 's2', d: 'M 155 112 C 120 112 120 152 155 152', arrow: '↺' },
+    { id: 's3', d: 'M 155 152 C 190 152 190 196 155 196 C 138 196 135 180 155 180 L 130 230', arrow: '↷' },
     { id: 's4', d: 'M 105 90 L 205 90', arrow: '→' },
     { id: 's5', d: 'M 155 90 C 160 52 192 52 195 75', arrow: '↗' },
   ],
@@ -148,9 +148,9 @@ export const CHARACTER_STROKES = {
   ],
   'झ': [
     { id: 's1', d: 'M 145 90 L 145 112', arrow: '↓' },
-    { id: 's2', d: 'M 145 112 C 175 112 175 145 145 150', arrow: '↷' },
-    { id: 's3', d: 'M 145 150 C 110 155 110 195 140 195 C 155 195 155 180 140 180 L 120 225', arrow: '↺' },
-    { id: 's4', d: 'M 140 155 L 185 155', arrow: '→' },
+    { id: 's2', d: 'M 145 112 C 115 112 115 145 145 150', arrow: '↺' },
+    { id: 's3', d: 'M 145 150 C 175 150 175 190 145 190 C 130 190 128 178 145 178 L 125 225', arrow: '↷' },
+    { id: 's4', d: 'M 145 150 L 185 150', arrow: '→' },
     { id: 's5', d: 'M 185 90 L 185 230', arrow: '↓' },
     { id: 's6', d: 'M 90 90 L 225 90', arrow: '→' },
   ],
@@ -166,7 +166,7 @@ export const CHARACTER_STROKES = {
   ],
   'ड': [
     { id: 's1', d: 'M 155 90 L 155 115', arrow: '↓' },
-    { id: 's2', d: 'M 155 115 C 185 115 185 150 155 155 C 120 160 120 205 160 210', arrow: '↷' },
+    { id: 's2', d: 'M 155 115 C 120 115 120 155 155 155 C 190 155 190 205 155 210', arrow: '↷' },
     { id: 's3', d: 'M 105 90 L 205 90', arrow: '→' },
   ],
   'ढ': [
@@ -272,8 +272,8 @@ export const CHARACTER_STROKES = {
   ],
   'ह': [
     { id: 's1', d: 'M 155 90 L 155 115', arrow: '↓' },
-    { id: 's2', d: 'M 155 115 C 185 115 185 150 150 155 L 130 155', arrow: '↷' },
-    { id: 's3', d: 'M 145 155 C 185 160 185 210 135 215', arrow: '↷' },
+    { id: 's2', d: 'M 155 115 C 120 115 120 152 155 152 L 135 155', arrow: '↺' },
+    { id: 's3', d: 'M 140 155 C 185 155 185 210 135 215', arrow: '↷' },
     { id: 's4', d: 'M 105 90 L 205 90', arrow: '→' },
   ],
   'ळ': [

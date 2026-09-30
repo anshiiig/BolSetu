@@ -971,11 +971,13 @@ h1, h2, h3, h4, .indic-text {
 }
 
 .sound-char {
-  font-size: 2.4rem;
+  font-size: 2.1rem;
   font-weight: 900;
   color: var(--text-main);
-  line-height: 1.1;
+  line-height: 1.15;
   font-family: var(--font-indic);
+  word-break: break-word;
+  max-width: 100%;
 }
 
 .sound-translit {
@@ -991,12 +993,11 @@ h1, h2, h3, h4, .indic-text {
   color: var(--text-main);
   margin-top: 6px;
   background: var(--bg-main);
-  padding: 2px 6px;
+  padding: 3px 6px;
   border-radius: var(--radius-sm);
   width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  word-break: break-word;
+  line-height: 1.2;
 }
 
 .sound-speaker-badge {
@@ -1623,6 +1624,178 @@ h1, h2, h3, h4, .indic-text {
   /* Responsive canvas on phone */
   .duolingo-tracing-stage {
     max-width: 290px !important;
+  }
+}
+
+/* ==========================================================================
+   Comprehensive Mobile Responsiveness & Polish (Phone / Tablet Modes)
+   ========================================================================== */
+
+/* Landing Page Header & Auth Actions */
+.landing-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  min-height: 70px;
+  background: var(--bg-card);
+  border-bottom: 2px solid var(--border-subtle);
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(12px);
+  gap: 12px;
+}
+
+.landing-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.landing-lang-select {
+  padding: 7px 12px;
+  border-radius: 10px;
+  border: 2px solid var(--border-subtle);
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: var(--bg-main);
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.landing-theme-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.landing-auth-btn {
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  border-radius: 10px;
+}
+
+/* Tracing Studio Responsive Layout */
+.tracing-layout-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 320px) 1fr;
+  gap: 20px;
+}
+
+/* Mini Games Responsiveness */
+.memory-flip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.strike-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.train-track-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 900px) {
+  .tracing-layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* When on Tracing, Soundboard, or Games on mobile, hide the side panel to avoid cluttered scroll */
+  .side-panel-secondary {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-navbar {
+    padding: 8px 14px;
+    min-height: 64px;
+    gap: 8px;
+  }
+
+  .landing-header-actions {
+    gap: 6px;
+  }
+
+  .landing-lang-select {
+    padding: 5px 8px !important;
+    font-size: 0.78rem !important;
+    max-width: 95px;
+  }
+
+  .landing-theme-btn {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .landing-auth-btn {
+    padding: 6px 12px !important;
+    font-size: 0.82rem !important;
+  }
+
+  .memory-flip-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .strike-actions-grid {
+    gap: 10px !important;
+  }
+
+  .strike-actions-grid button {
+    padding: 12px 10px !important;
+    font-size: 0.92rem !important;
+  }
+
+  .soundboard-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .sound-card {
+    padding: 12px 8px !important;
+  }
+
+  .sound-char {
+    font-size: 1.6rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-navbar {
+    padding: 6px 10px;
+  }
+
+  .landing-header-actions {
+    gap: 4px;
+  }
+
+  .landing-lang-select {
+    padding: 4px 6px !important;
+    font-size: 0.74rem !important;
+    max-width: 82px;
+  }
+
+  .landing-theme-btn {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .landing-auth-btn {
+    padding: 5px 10px !important;
+    font-size: 0.76rem !important;
+  }
+
+  .duolingo-tracing-stage {
+    max-width: 270px !important;
   }
 }
 

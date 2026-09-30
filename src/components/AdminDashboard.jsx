@@ -587,10 +587,10 @@ export function AdminDashboard({
         {[
           { id: 'overview', label: '📊 System Overview & KPIs' },
           { id: 'learners', label: `👥 Learner Roster (${learners.length})` },
-          { id: 'curriculum', label: '📚 Curriculum Inspector & Editor (600 Qs)' },
+          { id: 'curriculum', label: '📚 Curriculum Inspector & Editor (900 Qs)' },
           { id: 'games', label: `🎮 Mini-Games & Vocabulary (${customGameWords.length})` },
           ...(isChiefAdmin
-            ? [{ id: 'requests', label: `🛡️ Admin Access Requests (${pendingRequests.length})` }]
+            ? [{ id: 'requests', label: `🛡️ Admin Staff & Requests (${pendingRequests.length + approvedAdmins.length})` }]
             : []),
         ].map((tab) => {
           const isActive = activeTab === tab.id;
@@ -793,7 +793,7 @@ export function AdminDashboard({
                 </div>
                 <div
                   style={{
-                    fontSize: '2.2rem',
+                    fontSize: '2.0rem',
                     fontWeight: 900,
                     color: '#58CC02',
                     marginTop: '8px',
@@ -803,11 +803,10 @@ export function AdminDashboard({
                     gap: '4px',
                   }}
                 >
-                  <span>600</span>
-                  <span style={{ fontSize: '1.3rem', color: 'var(--text-muted)', fontWeight: 700 }}>/ 600</span>
+                  <span>900 Questions</span>
                 </div>
                 <div style={{ fontSize: '0.8rem', color: '#16A34A', fontWeight: 700, marginTop: '4px' }}>
-                  10 Qs × 10 Levels × 6 Languages
+                  ✓ 15 Questions per Lesson
                 </div>
               </div>
             </div>
@@ -1402,7 +1401,7 @@ export function AdminDashboard({
             TAB 4: MINI-GAMES & VOCABULARY MANAGER
            ========================================================================= */}
         {activeTab === 'games' && (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: '24px' }}>
+          <div className="admin-games-grid" style={{ display: 'grid', gap: '24px' }}>
             {/* Add Custom Word Form */}
             <div
               style={{

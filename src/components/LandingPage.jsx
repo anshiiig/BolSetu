@@ -25,6 +25,7 @@ import { SUPPORTED_LANGUAGES, audioEngine } from '../services/audioEngine';
 import { UI_TRANSLATIONS } from '../data/uiTranslations';
 import { ALPHABET_DATA } from '../data/alphabetData';
 import { sfx } from '../services/soundEffects';
+import { BolSetuBrandLogo } from './BolSetuLogo';
 
 export function LandingPage({
   uiLang = 'en',
@@ -163,52 +164,15 @@ export function LandingPage({
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-main)' }}>
       {/* Sticky Top Navigation */}
-      <header
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 50,
-          height: '74px',
-          background: 'var(--bg-card)',
-          borderBottom: '2px solid var(--border-subtle)',
-          padding: '0 24px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          backdropFilter: 'blur(12px)',
-        }}
-      >
-        {/* Brand Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', cursor: 'pointer' }}>
-          <div
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '14px',
-              background: 'linear-gradient(135deg, #5B42F3 0%, #FF5376 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#fff',
-              fontSize: '1.4rem',
-              fontWeight: 900,
-              boxShadow: '0 6px 16px rgba(91, 66, 243, 0.35)',
-            }}
-          >
-            बो
-          </div>
-          <div className="brand-text">
-            <h1 style={{ fontSize: '1.45rem', fontWeight: 900, margin: 0, letterSpacing: '-0.02em', color: 'var(--text-main)' }}>
-              {t.appName}
-            </h1>
-            <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-              {t.tagline}
-            </span>
-          </div>
-        </div>
+      <header className="landing-navbar">
+        {/* Brand Logo with Owl Mascot */}
+        <BolSetuBrandLogo
+          showTagline={false}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        />
 
         {/* Right Header Navigation Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div className="landing-header-actions">
           {/* Interface Language Selector */}
           <select
             value={uiLang}
@@ -217,16 +181,7 @@ export function LandingPage({
               setUiLang(e.target.value);
             }}
             title="Select Interface Language"
-            style={{
-              padding: '7px 12px',
-              borderRadius: '10px',
-              border: '2px solid var(--border-subtle)',
-              fontWeight: 700,
-              fontSize: '0.85rem',
-              background: 'var(--bg-main)',
-              color: 'var(--text-main)',
-              cursor: 'pointer',
-            }}
+            className="landing-lang-select"
           >
             {SUPPORTED_LANGUAGES.map((l) => (
               <option key={l.code} value={l.code}>
@@ -237,18 +192,16 @@ export function LandingPage({
 
           {/* Theme Switcher */}
           <button
-            className="icon-btn"
+            className="icon-btn landing-theme-btn"
             onClick={toggleTheme}
             title={theme === 'dark' ? t.themeLight : t.themeDark}
-            style={{ width: '40px', height: '40px', borderRadius: '10px' }}
           >
             {theme === 'dark' ? <Sun size={18} color="#FF9F1C" /> : <Moon size={18} color="#5B42F3" />}
           </button>
 
           {/* Log In */}
           <button
-            className="btn-3d btn-outline"
-            style={{ padding: '8px 18px', fontSize: '0.9rem', borderRadius: '10px' }}
+            className="btn-3d btn-outline landing-auth-btn"
             onClick={() => {
               sfx.playPop();
               onOpenLogin();
@@ -259,8 +212,7 @@ export function LandingPage({
 
           {/* Register */}
           <button
-            className="btn-3d btn-primary"
-            style={{ padding: '8px 20px', fontSize: '0.9rem', borderRadius: '10px' }}
+            className="btn-3d btn-primary landing-auth-btn"
             onClick={() => {
               sfx.playPop();
               onOpenRegister();

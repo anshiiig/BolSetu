@@ -715,7 +715,7 @@ export function MiniGames({ targetLang = 'mr', uiLang = 'en', onRewardXp }) {
             </button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+          <div className="memory-flip-grid">
             {memoryCards.map((card, idx) => {
               const isFlipped = flippedIndices.includes(idx) || matchedIds.includes(card.pairId);
 
@@ -1031,17 +1031,19 @@ export function MiniGames({ targetLang = 'mr', uiLang = 'en', onRewardXp }) {
 
           {/* The Train Railway Track & Assembly */}
           <div
+            className="train-track-container"
             style={{
-              padding: '24px 16px',
+              padding: '20px 14px',
               background: 'linear-gradient(180deg, rgba(91, 66, 243, 0.04) 0%, rgba(255, 159, 28, 0.06) 100%)',
               borderRadius: '18px',
               border: '2px dashed var(--border-subtle)',
               marginBottom: '24px',
-              minHeight: '140px',
+              minHeight: '130px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               overflowX: 'auto',
+              WebkitOverflowScrolling: 'touch',
             }}
           >
             <div
@@ -1049,6 +1051,8 @@ export function MiniGames({ targetLang = 'mr', uiLang = 'en', onRewardXp }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
                 transform: trainSuccessAnim ? 'translateX(20px) scale(1.03)' : 'none',
                 transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
               }}
@@ -1252,25 +1256,26 @@ export function MiniGames({ targetLang = 'mr', uiLang = 'en', onRewardXp }) {
               )}
 
               {/* Rapid Action Buttons */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="strike-actions-grid">
                 <button
                   className="btn-3d"
                   style={{
                     background: '#00C4CC',
                     color: '#fff',
-                    padding: '16px 20px',
-                    fontSize: '1.1rem',
+                    padding: '14px 16px',
+                    fontSize: '1.05rem',
                     fontWeight: 900,
                     borderRadius: '16px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '10px',
+                    gap: '8px',
+                    minWidth: 0,
                   }}
                   onClick={() => handleStrikeAnswer(true)}
                 >
-                  <Check size={24} />
-                  {t.matchYes}
+                  <Check size={20} />
+                  <span>{t.matchYes}</span>
                 </button>
 
                 <button
@@ -1278,19 +1283,20 @@ export function MiniGames({ targetLang = 'mr', uiLang = 'en', onRewardXp }) {
                   style={{
                     background: '#FF5376',
                     color: '#fff',
-                    padding: '16px 20px',
-                    fontSize: '1.1rem',
+                    padding: '14px 16px',
+                    fontSize: '1.05rem',
                     fontWeight: 900,
                     borderRadius: '16px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '10px',
+                    gap: '8px',
+                    minWidth: 0,
                   }}
                   onClick={() => handleStrikeAnswer(false)}
                 >
-                  <X size={24} />
-                  {t.matchNo}
+                  <X size={20} />
+                  <span>{t.matchNo}</span>
                 </button>
               </div>
             </div>

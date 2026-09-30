@@ -1,20 +1,53 @@
-<svg viewBox="0 0 100 100" width="100" height="100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="50" cy="50" r="48" fill="#58CC02" />
-  <circle cx="50" cy="50" r="45" fill="#FFFFFF" />
-  <path d="M 22 45 C 22 24 78 24 78 45" stroke="#3B82F6" stroke-width="7" stroke-linecap="round" />
-  <ellipse cx="50" cy="55" rx="32" ry="34" fill="#58CC02" />
-  <ellipse cx="50" cy="62" rx="22" ry="22" fill="#86EFAC" opacity="0.6" />
-  <ellipse cx="38" cy="48" rx="8" ry="10" fill="#FFFFFF" />
-  <circle cx="39" cy="48" r="5" fill="#1E293B" />
-  <circle cx="41" cy="45" r="2.2" fill="#FFFFFF" />
-  <ellipse cx="62" cy="48" rx="8" ry="10" fill="#FFFFFF" />
-  <circle cx="61" cy="48" r="5" fill="#1E293B" />
-  <circle cx="63" cy="45" r="2.2" fill="#FFFFFF" />
-  <circle cx="28" cy="56" r="4.5" fill="#F472B6" opacity="0.6" />
-  <circle cx="72" cy="56" r="4.5" fill="#F472B6" opacity="0.6" />
-  <path d="M 43 54 Q 50 63 57 54 Z" fill="#F97316" stroke="#EA580C" stroke-width="1.5" />
-  <rect x="12" y="42" width="12" height="22" rx="6" fill="#3B82F6" stroke="#1D4ED8" stroke-width="2" />
-  <circle cx="18" cy="53" r="3.5" fill="#FBBF24" />
-  <rect x="76" y="42" width="12" height="22" rx="6" fill="#3B82F6" stroke="#1D4ED8" stroke-width="2" />
-  <circle cx="82" cy="53" r="3.5" fill="#FBBF24" />
+<svg viewBox="0 0 100 100" width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="owlLogoBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="owlLogoBellyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="100%" stop-color="#FACC15" />
+    </linearGradient>
+  </defs>
+
+  {/* Owl Ears / Tufts */}
+  <polygon points="24,18 36,34 16,32" fill="#0369A1" />
+  <polygon points="76,18 84,32 64,34" fill="#0369A1" />
+
+  {/* Owl Body */}
+  <ellipse cx="50" cy="56" rx="36" ry="38" fill="url(#owlLogoBodyGrad)" />
+
+  {/* Belly */}
+  <ellipse cx="50" cy="64" rx="22" ry="24" fill="url(#owlLogoBellyGrad)" />
+  {/* Feather markings */}
+  <path d="M42,56 Q50,60 58,56 M44,64 Q50,68 56,64 M45,72 Q50,75 55,72" stroke="#CA8A04" stroke-width="2" fill="none" stroke-linecap="round" />
+
+  {/* Wings */}
+  <ellipse cx="16" cy="58" rx="8" ry="20" fill="#0284C7" transform="rotate(10 16 58)" />
+  <ellipse cx="84" cy="58" rx="8" ry="20" fill="#0284C7" transform="rotate(-10 84 58)" />
+
+  {/* Big Cartoon Eyes */}
+  <circle cx="37" cy="42" r="14" fill="#FFFFFF" stroke="#0369A1" stroke-width="2" />
+  <circle cx="63" cy="42" r="14" fill="#FFFFFF" stroke="#0369A1" stroke-width="2" />
+
+  {/* Pupils with bright sparkle reflections */}
+  <circle cx="39" cy="42" r="7" fill="#0F172A" />
+  <circle cx="41" cy="40" r="2.5" fill="#FFFFFF" />
+  <circle cx="61" cy="42" r="7" fill="#0F172A" />
+  <circle cx="63" cy="40" r="2.5" fill="#FFFFFF" />
+
+  {/* Friendly Orange Beak */}
+  <polygon points="46,48 54,48 50,58" fill="#F97316" />
+
+  {/* Cute Graduation / Scholar Cap */}
+  <polygon points="50,10 78,19 50,26 22,19" fill="#4F46E5" />
+  <rect x="40" y="24" width="20" height="6" rx="3" fill="#3730A3" />
+  {/* Tassel */}
+  <circle cx="50" cy="18" r="2.5" fill="#FBBF24" />
+  <path d="M50,18 Q62,22 68,32" stroke="#FBBF24" stroke-width="2" fill="none" />
+  <circle cx="68" cy="33" r="3" fill="#FBBF24" />
+
+  {/* Cute feet */}
+  <ellipse cx="40" cy="93" rx="6" ry="3" fill="#EA580C" />
+  <ellipse cx="60" cy="93" rx="6" ry="3" fill="#EA580C" />
 </svg>

@@ -389,19 +389,35 @@ export function getCurriculumForLanguage(targetLang = 'mr', uiLang = 'en') {
           type: 'match_pairs',
           instruction: getInst('matchWords'),
           pairs: [
-            { left: vA.char, right: vA.icon || '🍎' },
-            { left: vAa.char, right: vAa.icon || '🥭' },
-            { left: vI.char, right: vI.icon || '🏢' },
-            { left: vEe.char, right: vEe.icon || '🍋' },
+            {
+              left: vA.char,
+              right: `${vA.icon || '🍎'} ${vA.example ? vA.example.split(' ')[0] : vA.char} (${vA.translit})`,
+              speakWord: vA.example ? vA.example.split(' ')[0] : vA.char,
+            },
+            {
+              left: vAa.char,
+              right: `${vAa.icon || '🥭'} ${vAa.example ? vAa.example.split(' ')[0] : vAa.char} (${vAa.translit})`,
+              speakWord: vAa.example ? vAa.example.split(' ')[0] : vAa.char,
+            },
+            {
+              left: vI.char,
+              right: `${vI.icon || '🏢'} ${vI.example ? vI.example.split(' ')[0] : vI.char} (${vI.translit})`,
+              speakWord: vI.example ? vI.example.split(' ')[0] : vI.char,
+            },
+            {
+              left: vEe.char,
+              right: `${vEe.icon || '🍋'} ${vEe.example ? vEe.example.split(' ')[0] : vEe.char} (${vEe.translit})`,
+              speakWord: vEe.example ? vEe.example.split(' ')[0] : vEe.char,
+            },
           ],
         },
         {
           id: 'q1_6',
           type: 'scramble',
-          instruction: getInst('buildSentence'),
-          promptText: uiLang === 'mr' ? 'हे पाणी आहे' : uiLang === 'hi' ? 'यह पानी है' : 'This is water',
-          tokens: targetLang === 'mr' ? ['हे', 'पाणी', 'आहे'] : targetLang === 'hi' ? ['यह', 'पानी', 'है'] : ['This', 'is', 'water'],
-          correctSentence: targetLang === 'mr' ? 'हे पाणी आहे' : targetLang === 'hi' ? 'यह पानी है' : 'This is water',
+          instruction: uiLang === 'mr' ? 'स्वरांचा योग्य क्रम लावा (Sequence):' : uiLang === 'hi' ? 'स्वरों का सही क्रम लगाएं (Sequence):' : 'Arrange the vowels in correct sequence:',
+          promptText: `${vA.char} - ${vAa.char} - ${vI.char} - ${vEe.char}`,
+          tokens: [vEe.char, vA.char, vI.char, vAa.char],
+          correctSentence: `${vA.char} ${vAa.char} ${vI.char} ${vEe.char}`,
         },
         {
           id: 'q1_7',
@@ -427,12 +443,12 @@ export function getCurriculumForLanguage(targetLang = 'mr', uiLang = 'en') {
         {
           id: 'q1_9',
           type: 'fill_blank',
-          instruction: getInst('fillBlank'),
-          sentenceParts: targetLang === 'mr' ? ['हे फळ गोड ', '.'] : targetLang === 'hi' ? ['यह फल मीठा ', '।'] : ['This fruit ', ' sweet.'],
+          instruction: uiLang === 'mr' ? 'गाळलेली जागा भरा (पुढील स्वर ओळखा):' : uiLang === 'hi' ? 'रिक्त स्थान भरें (क्रम अनुसार स्वर पहचानें):' : 'Fill in the blank with the correct vowel in sequence:',
+          sentenceParts: [`${vA.char} , ${vAa.char} , `, ` , ${vEe.char}`],
           options: [
-            { text: targetLang === 'mr' ? 'आहे' : targetLang === 'hi' ? 'है' : 'is', isCorrect: true },
-            { text: targetLang === 'mr' ? 'नाही' : targetLang === 'hi' ? 'नहीं' : 'not', isCorrect: false },
-            { text: targetLang === 'mr' ? 'पाणी' : targetLang === 'hi' ? 'पानी' : 'water', isCorrect: false },
+            { text: vI.char, isCorrect: true },
+            { text: (vowels[4] || { char: 'उ' }).char, isCorrect: false },
+            { text: (vowels[5] || { char: 'ऊ' }).char, isCorrect: false },
           ],
         },
         {
@@ -492,10 +508,10 @@ export function getCurriculumForLanguage(targetLang = 'mr', uiLang = 'en') {
         {
           id: 'q1_15',
           type: 'scramble',
-          instruction: getInst('buildSentence'),
-          promptText: uiLang === 'mr' ? 'आंबा खूप गोड आहे' : uiLang === 'hi' ? 'आम बहुत मीठा है' : 'Mango is very sweet',
-          tokens: targetLang === 'mr' ? ['आंबा', 'खूप', 'गोड', 'आहे'] : targetLang === 'hi' ? ['आम', 'बहुत', 'मीठा', 'है'] : ['Mango', 'is', 'very', 'sweet'],
-          correctSentence: targetLang === 'mr' ? 'आंबा खूप गोड आहे' : targetLang === 'hi' ? 'आम बहुत मीठा है' : 'Mango is very sweet',
+          instruction: uiLang === 'mr' ? 'स्वर जोडून "आई" (Mother) शब्द बनवा:' : uiLang === 'hi' ? 'स्वर जोड़कर "आई" (माता/Mother) शब्द बनाएं:' : 'Combine vowels to form word "Aai" (Mother):',
+          promptText: `${vAa.char} + ${vEe.char} = ${vAa.char}${vEe.char} (Mother)`,
+          tokens: [vEe.char, vAa.char],
+          correctSentence: `${vAa.char} ${vEe.char}`,
         },
       ];
     } else if (lvlId === 2) {
@@ -556,10 +572,26 @@ export function getCurriculumForLanguage(targetLang = 'mr', uiLang = 'en') {
           type: 'match_pairs',
           instruction: getInst('matchWords'),
           pairs: [
-            { left: cKa.char, right: cKa.icon || '🪷' },
-            { left: cKha.char, right: cKha.icon || '🖍️' },
-            { left: cGa.char, right: cGa.icon || '🪴' },
-            { left: cGha.char, right: cGha.icon || '🏠' },
+            {
+              left: cKa.char,
+              right: `${cKa.icon || '🪷'} ${cKa.example ? cKa.example.split(' ')[0] : cKa.char} (${cKa.translit})`,
+              speakWord: cKa.example ? cKa.example.split(' ')[0] : cKa.char,
+            },
+            {
+              left: cKha.char,
+              right: `${cKha.icon || '🖍️'} ${cKha.example ? cKha.example.split(' ')[0] : cKha.char} (${cKha.translit})`,
+              speakWord: cKha.example ? cKha.example.split(' ')[0] : cKha.char,
+            },
+            {
+              left: cGa.char,
+              right: `${cGa.icon || '🪴'} ${cGa.example ? cGa.example.split(' ')[0] : cGa.char} (${cGa.translit})`,
+              speakWord: cGa.example ? cGa.example.split(' ')[0] : cGa.char,
+            },
+            {
+              left: cGha.char,
+              right: `${cGha.icon || '🏠'} ${cGha.example ? cGha.example.split(' ')[0] : cGha.char} (${cGha.translit})`,
+              speakWord: cGha.example ? cGha.example.split(' ')[0] : cGha.char,
+            },
           ],
         },
         {
@@ -726,10 +758,10 @@ export function getCurriculumForLanguage(targetLang = 'mr', uiLang = 'en') {
           type: 'match_pairs',
           instruction: getInst('matchWords'),
           pairs: [
-            { left: tapWord, right: '🚰' },
-            { left: fruitWord, right: '🍌' },
-            { left: waterWord, right: '💧' },
-            { left: mindWord, right: '🧠' },
+            { left: tapWord, right: `🚰 ${tapWord}`, speakWord: tapWord },
+            { left: fruitWord, right: `🍌 ${fruitWord}`, speakWord: fruitWord },
+            { left: waterWord, right: `💧 ${waterWord}`, speakWord: waterWord },
+            { left: mindWord, right: `🧠 ${mindWord}`, speakWord: mindWord },
           ],
         },
         {
