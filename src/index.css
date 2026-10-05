@@ -1799,3 +1799,24 @@ h1, h2, h3, h4, .indic-text {
   }
 }
 
+/* BolSetu Chatbot Floating Placement (Ensures zero overlap with mobile bottom navigation) */
+@media (max-width: 768px) {
+  .bolsetu-chatbot-trigger {
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+    right: 14px !important;
+    padding: 8px 14px !important;
+    gap: 8px !important;
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45) !important;
+  }
+
+  .bolsetu-chat-drawer {
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+    right: 10px !important;
+    left: 10px !important;
+    width: auto !important;
+    max-width: calc(100vw - 20px) !important;
+    height: 72vh !important;
+    max-height: calc(100vh - 160px) !important;
+  }
+}
+

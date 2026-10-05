@@ -701,13 +701,16 @@ export function AdminDashboard({
             >
               {/* Card 1: Total Learners */}
               <div
-                className="stat-card"
                 style={{
                   background: 'var(--bg-card)',
                   padding: '20px',
                   borderRadius: '18px',
                   border: '2px solid var(--border-subtle)',
                   boxShadow: 'var(--shadow-sm)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  minHeight: '140px',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -726,13 +729,16 @@ export function AdminDashboard({
 
               {/* Card 2: XP Logged */}
               <div
-                className="stat-card"
                 style={{
                   background: 'var(--bg-card)',
                   padding: '20px',
                   borderRadius: '18px',
                   border: '2px solid var(--border-subtle)',
                   boxShadow: 'var(--shadow-sm)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  minHeight: '140px',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -751,13 +757,16 @@ export function AdminDashboard({
 
               {/* Card 3: Indic Regional Languages */}
               <div
-                className="stat-card"
                 style={{
                   background: 'var(--bg-card)',
                   padding: '20px',
                   borderRadius: '18px',
                   border: '2px solid var(--border-subtle)',
                   boxShadow: 'var(--shadow-sm)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  minHeight: '140px',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -774,15 +783,18 @@ export function AdminDashboard({
                 </div>
               </div>
 
-              {/* Card 4: Curriculum Questions (Desktop fix: cleanly styled 600 / 600) */}
+              {/* Card 4: Curriculum Questions */}
               <div
-                className="stat-card"
                 style={{
                   background: 'var(--bg-card)',
                   padding: '20px',
                   borderRadius: '18px',
                   border: '2px solid var(--border-subtle)',
                   boxShadow: 'var(--shadow-sm)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  minHeight: '140px',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -791,19 +803,8 @@ export function AdminDashboard({
                   </span>
                   <span style={{ fontSize: '1.6rem' }}>📖</span>
                 </div>
-                <div
-                  style={{
-                    fontSize: '2.0rem',
-                    fontWeight: 900,
-                    color: '#58CC02',
-                    marginTop: '8px',
-                    whiteSpace: 'nowrap',
-                    display: 'flex',
-                    alignItems: 'baseline',
-                    gap: '4px',
-                  }}
-                >
-                  <span>900 Questions</span>
+                <div style={{ fontSize: '2.2rem', fontWeight: 900, color: '#58CC02', marginTop: '8px' }}>
+                  900 Questions
                 </div>
                 <div style={{ fontSize: '0.8rem', color: '#16A34A', fontWeight: 700, marginTop: '4px' }}>
                   ✓ 15 Questions per Lesson
